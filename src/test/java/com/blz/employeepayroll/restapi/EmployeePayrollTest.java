@@ -91,4 +91,20 @@ public class EmployeePayrollTest {
 		assertEquals(5, entries);
 	}
 
+	@Test
+	public void givenSalary_WhenUpdated_ShouldMatch200response() {
+		EmployeePayrollData[] arrayOfEmployee = getEmployeeList();
+		employeePayrollRESTService = new EmployeePayrollService(Arrays.asList(arrayOfEmployee));
+		employeePayrollRESTService.updateEmployeeSalary("Charan", 6000000.00, REST_IO);
+		EmployeePayrollData employeePayrollData = employeePayrollRESTService.getEmployeePayrollData("Charan");
+
+		String empJson = new Gson().toJson(employeePayrollData);
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		request.body(empJson);
+		Response response = request.put("/employeepayroll/" + employeePayrollData.id);
+		int statusCode = response.getStatusCode();
+		assertEquals(200, statusCode);
+	}
+
 }
