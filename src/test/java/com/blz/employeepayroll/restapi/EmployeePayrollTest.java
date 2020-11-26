@@ -107,4 +107,13 @@ public class EmployeePayrollTest {
 		assertEquals(200, statusCode);
 	}
 
+	@Test
+	public void givenEmployeeDataFromJsonServer_WhenRetrieved_ShouldMatchEntries() {
+		EmployeePayrollData[] arrayOfEmployee = getEmployeeList();
+		EmployeePayrollService employeePayrollRESTService;
+		employeePayrollRESTService = new EmployeePayrollService(Arrays.asList(arrayOfEmployee));
+		long entries = employeePayrollRESTService.countEntries(REST_IO);
+		assertEquals(5, entries);
+	}
+
 }
