@@ -42,4 +42,9 @@ public class EmployeePayrollService {
 				.findFirst().orElse(null);
 		return employeePayrollData;
 	}
+
+	public void deleteEmployeePayroll(String name, IOService restIo) {
+		EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(name);
+		employeePayrollList.remove(employeePayrollData);
+	}
 }
